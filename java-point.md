@@ -104,6 +104,41 @@ switch (i) {
 
 ---
 
+## Q9. instanceof と null
+
+**問題:** 以下のコードの出力結果は？
+```java
+String s = null;
+System.out.println(s instanceof String);
+```
+
+**選択肢:**
+- A. `true`
+- B. `false`
+- C. `null`
+- D. コンパイルエラー
+- E. `NullPointerException`
+- F. `ClassCastException`
+
+**回答:** B（`false`）※間違えた問題（F と回答）
+
+**ワンポイントアドバイス:**
+`instanceof` は `null` に対して常に `false` を返す。例外は発生しない。`null` はどの型のインスタンスでもない。
+
+| 値 | `instanceof` の結果 |
+|---|---|
+| `null` | 常に `false` |
+| `""` （空文字） | `true`（Stringオブジェクトのため） |
+| `0` （int） | コンパイルエラー（プリミティブには使えない） |
+
+`ClassCastException` は型キャストに失敗したときに発生する：
+```java
+Object obj = "hello";
+Integer i = (Integer) obj;  // ClassCastException
+```
+
+---
+
 ## Q8. try-catch-finally の実行順序
 
 **問題:** 以下のコードの出力結果は？
