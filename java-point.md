@@ -103,3 +103,33 @@ switch (i) {
 `case 10` に `break` がないため、フォールスルーが発生し次の `case 20` も実行される。`case 20` に `break` があるのでそこで停止。意図しないフォールスルーはバグの原因になるため、各 `case` には原則 `break` を忘れずに書く。
 
 ---
+
+## Q6. StringBuilder の append と insert
+
+**問題:** 以下のコードの出力結果は？
+```java
+StringBuilder sb = new StringBuilder("Java");
+sb.append(" Silver");
+sb.insert(4, "!");
+System.out.println(sb);
+```
+
+**選択肢:**
+- A. `Java! Silver`
+- B. `Java Silver!`
+- C. `!Java Silver`
+- D. `Java Silver`
+
+**回答:** A（`Java! Silver`）
+
+**ワンポイントアドバイス:**
+`append(str)` は末尾に追加、`insert(index, str)` は指定インデックスの位置に挿入する。
+`append` 後は `"Java Silver"`（11文字）、`insert(4, "!")` でインデックス4に `"!"` を挿入して `"Java! Silver"` になる。
+`String` と異なり `StringBuilder` はイミュータブルではないため、元のオブジェクトを直接変更する。
+
+| メソッド | 動作 |
+|---|---|
+| `append(str)` | 末尾に追加 |
+| `insert(index, str)` | 指定位置に挿入 |
+
+---
