@@ -42,3 +42,9 @@
 ### 共通ルール
 - Q番号は既存エントリの続きからインクリメント
 - `.class` ファイルは `.gitignore` で除外する
+
+## GitHub リポジトリ
+
+- リモートURL: `https://github.com/mako-agawa/java_study.git`
+- ブランチ: `main`
+- プッシュ先は常にこのリポジトリを使用すること
