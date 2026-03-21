@@ -104,6 +104,44 @@ switch (i) {
 
 ---
 
+## Q8. try-catch-finally の実行順序
+
+**問題:** 以下のコードの出力結果は？
+```java
+try {
+    int[] arr = new int[3];
+    arr[5] = 10;
+    System.out.println("A");
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("B");
+} finally {
+    System.out.println("C");
+}
+```
+
+**選択肢:**
+- A. `A`
+- B. `B`
+- C. `A` / `C`
+- D. `B` / `C`
+- E. `A` / `B` / `C`
+
+**回答:** D（`B` / `C`）※間違えた問題（C と回答）
+
+**ワンポイントアドバイス:**
+`arr[5]` で例外が発生した時点で `"A"` はスキップされ `catch` ブロックへジャンプする。`finally` は例外の有無に関わらず必ず実行される。
+
+`try` / `catch` / `finally` の組み合わせルール：
+
+| 組み合わせ | 可否 |
+|---|---|
+| `try` + `catch` | ✅ |
+| `try` + `finally` | ✅ |
+| `try` + `catch` + `finally` | ✅ |
+| `try` だけ | ❌ コンパイルエラー |
+
+---
+
 ## Q7. 変数のスコープとコンパイルエラー
 
 **問題:** 以下のコードの出力結果は？
