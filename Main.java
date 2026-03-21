@@ -1,18 +1,17 @@
 public class Main {
-  static int count = 0;
-
   public static void main(String[] args) {
-    for (int i = 0; i < 3; i++) {
-      count++;
+    int i = 10;
+    switch (i) {
+      case 10:
+        System.out.println("ten");
+      case 20:
+        System.out.println("twenty");
+        break;
+      case 30:
+        System.out.println("thirty");
+      default:
+        System.out.println("other");
     }
-    System.out.println(count);
-
-    System.out.println("=====================");
-    System.out.println("問題3の回答：B");
-    System.out.println("=====================");
-  }
-
-  static {
-    count = 10;
+    System.out.println("答えはB");
   }
 }
