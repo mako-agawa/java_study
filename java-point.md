@@ -104,6 +104,42 @@ switch (i) {
 
 ---
 
+## 補足. 型変換・キャストまとめ
+
+### 基本型の大きさ（小 → 大）
+```
+byte → short → int → long → float → double
+                char ↗
+```
+
+### 変換ルール
+
+| 変換の方向 | 種類 | キャスト | 例 |
+|---|---|---|---|
+| 小さい型 → 大きい型 | 拡大変換 | 不要（自動） | `int` → `double` |
+| 大きい型 → 小さい型 | 縮小変換 | **必須** | `double` → `int` |
+| `int` → `char` | 縮小変換 | **必須** | `(char) 65` → `'A'` |
+| `char` → `int` | 拡大変換 | 不要 | `(int) 'A'` → `65` |
+
+### 縮小変換の注意点
+
+| 変換 | 結果 |
+|---|---|
+| `(int) 3.9` | `3`（切り捨て） |
+| `(int) -3.9` | `-3`（切り捨て） |
+| `(byte) 130` | `-126`（オーバーフロー） |
+
+### String との変換
+
+| 変換 | 方法 |
+|---|---|
+| `int` → `String` | `String.valueOf(x)` or `"" + x` |
+| `String` → `int` | `Integer.parseInt("123")` |
+| `double` → `String` | `String.valueOf(x)` |
+| `String` → `double` | `Double.parseDouble("3.14")` |
+
+---
+
 ## Q16. int/int の演算と型変換
 
 **問題:** 以下のコードの出力結果は？
