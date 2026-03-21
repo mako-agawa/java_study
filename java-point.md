@@ -104,6 +104,46 @@ switch (i) {
 
 ---
 
+## Q19. 値渡し（pass by value）
+
+**問題:** 以下のコードの出力結果は？
+```java
+static int x = 5;
+
+public static void change(int x) {
+    x = 100;
+}
+
+public static void main(String[] args) {
+    change(x);
+    System.out.println(x);
+}
+```
+
+**選択肢:**
+- A. `100`
+- B. `5`
+- C. `0`
+- D. コンパイルエラー
+
+**回答:** B（`5`）
+
+**ワンポイントアドバイス:**
+Javaのプリミティブ型は値渡し（pass by value）。メソッドに渡されるのはコピーなので、メソッド内で変更しても呼び出し元のフィールドには影響しない。
+
+100を出力したい場合は以下のいずれか：
+
+```java
+// 1. 戻り値で返す（推奨）
+public static int change(int x) { return 100; }
+x = change(x);
+
+// 2. フィールドを直接変更する
+public static void change() { x = 100; }
+```
+
+---
+
 ## Q18. 拡張for文と最大値探索
 
 **問題:** 以下のコードの出力結果は？
