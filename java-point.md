@@ -104,6 +104,50 @@ switch (i) {
 
 ---
 
+## Q7. 変数のスコープとコンパイルエラー
+
+**問題:** 以下のコードの出力結果は？
+```java
+int x = 10;
+if (x > 5) {
+    int y = 20;
+}
+System.out.println(y);
+```
+
+**選択肢:**
+- A. `20`
+- B. `0`
+- C. `null`
+- D. コンパイルエラー
+- E. `NullPointerException`
+
+**回答:** D（コンパイルエラー）※間違えた問題（E と回答）
+
+**ワンポイントアドバイス:**
+`y` は `if` ブロック内で宣言されているためスコープはブロック内のみ。ブロック外から参照するとコンパイルエラーになる。`NullPointerException` はオブジェクトが `null` のときにメソッドやフィールドにアクセスした場合に発生する実行時例外。スコープ違反はコンパイル時に検出される。
+
+**補足：エラーハンドリング（例外処理）**
+
+```java
+try {
+    // 例外が発生するかもしれない処理
+} catch (ArithmeticException e) {
+    // 例外を捕まえて対処
+} finally {
+    // 例外の有無に関わらず必ず実行
+}
+```
+
+| 種類 | 説明 | 例 |
+|---|---|---|
+| 検査例外（checked） | catchを強制 | `IOException` |
+| 非検査例外（unchecked） | catchは任意 | `NullPointerException`, `ArrayIndexOutOfBoundsException` |
+
+複数 `catch` を書く場合は**具体的な例外を先に**書く。
+
+---
+
 ## Q6. StringBuilder の append と insert
 
 **問題:** 以下のコードの出力結果は？
