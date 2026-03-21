@@ -104,6 +104,41 @@ switch (i) {
 
 ---
 
+## Q14. Stringのイミュータブルと参照
+
+**問題:** 以下のコードの出力結果は？
+```java
+String s1 = "Hello";
+String s2 = s1;
+s1 = "World";
+System.out.println(s1);
+System.out.println(s2);
+```
+
+**選択肢:**
+- A. `World` / `World`
+- B. `Hello` / `Hello`
+- C. `World` / `Hello`
+- D. `Hello` / `World`
+
+**回答:** C（`World` / `Hello`）※間違えた問題（B と回答）
+
+**ワンポイントアドバイス:**
+`String` はイミュータブルなので `s1 = "World"` は `s1` の参照先を変えるだけで `"Hello"` オブジェクト自体は変わらない。`s2` は引き続き `"Hello"` を参照したまま。
+
+```
+変更前: s1 ──→ "Hello" ←── s2
+変更後: s1 ──→ "World"
+        s2 ──→ "Hello"
+```
+
+| クラス | 種類 |
+|---|---|
+| `String` | イミュータブル（参照先を変えるだけ） |
+| `StringBuilder` | ミュータブル（オブジェクト自体が変化） |
+
+---
+
 ## Q13. 複合代入演算子
 
 **問題:** 以下のコードの出力結果は？
