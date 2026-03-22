@@ -158,3 +158,43 @@ public class Main {
 | `!` | NOT | 元が `false` |
 
 ---
+
+## Q25. staticメソッドとインスタンスメソッドのアクセスルール
+
+**問題:** 次の中から、正しい説明を含む選択肢を2つ選べ
+
+**選択肢:**
+- A. staticなメソッドは、staticなメソッドを使用できない
+- B. staticなメソッドは、staticでないメソッドを使用できない
+- C. staticなメソッドは、staticでないメンバーを使用できる
+- D. staticでないメソッドは、staticなフィールドにアクセスできる
+- E. staticでないメソッドは、staticなメソッドにアクセスできる
+- F. staticでないメソッドは、staticなメソッドを使用できない
+
+**回答:** D と E
+
+**ワンポイントアドバイス:**
+
+| 呼び出し元 | staticメソッド | インスタンスメソッド |
+|---|---|---|
+| **staticメソッドから** | ✅ 呼び出せる | ❌ 直接は呼び出せない |
+| **インスタンスメソッドから** | ✅ 呼び出せる | ✅ 呼び出せる |
+
+```java
+class Sample {
+    static int count = 0;
+    static void staticMethod() {
+        System.out.println("static");
+    }
+
+    void instanceMethod() {
+        count++;          // ✅ D: staticフィールドにアクセスできる
+        staticMethod();   // ✅ E: staticメソッドにアクセスできる
+    }
+}
+```
+
+- インスタンスメソッド → static メンバーへのアクセスは自由
+- staticメソッド → インスタンスメンバーへの直接アクセスは不可（オブジェクトが未確定のため）
+
+---
