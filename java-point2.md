@@ -946,3 +946,67 @@ public class Main {
 |---|---|---|
 | 親クラス | `Exception` | `RuntimeException` |
 | 例 | `IOException`、`SQLException` | `NullPointerException`、`ArrayIndexOutOfBoundsException` |
+
+---
+
+## Q40. ArrayList の add と get
+
+**問題:** 以下のコードの出力結果は？
+```java
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+        list.add(1, "Blueberry");
+
+        System.out.println(list.size());
+        System.out.println(list.get(1));
+    }
+}
+```
+
+**選択肢:**
+- A. `3` / `Banana`
+- B. `4` / `Banana`
+- C. `4` / `Blueberry`
+- D. `3` / `Blueberry`
+- E. コンパイルエラー
+
+**回答:** C（`4` / `Blueberry`）
+
+**ワンポイントアドバイス:**
+`add(index, value)` は指定位置に挿入し、以降の要素をずらす。
+
+```
+add("Apple")        → ["Apple"]
+add("Banana")       → ["Apple", "Banana"]
+add("Cherry")       → ["Apple", "Banana", "Cherry"]
+add(1, "Blueberry") → ["Apple", "Blueberry", "Banana", "Cherry"]
+```
+
+| メソッド | 動作 |
+|---|---|
+| `add(value)` | 末尾に追加 |
+| `add(index, value)` | 指定位置に挿入（以降をずらす） |
+| `get(index)` | 指定位置の要素を取得 |
+| `remove(index)` | 指定位置の要素を削除 |
+| `size()` | 要素数を返す |
+
+**補足: List インタフェースと ArrayList の使い分け**
+
+`new List<>()` はコンパイルエラー（インタフェースはインスタンス化不可）。変数の型を `List` にするだけなら問題なし。
+
+```java
+List<String> list = new ArrayList<>();  // ✅ 推奨（後で実装クラスを差し替えやすい）
+```
+
+`add(index, value)` / `get()` / `size()` はすべて `List` インタフェースに定義されているため、`ArrayList` 固有のメソッドは不要。
+
+| 宣言方法 | メリット |
+|---|---|
+| `List<String> list = new ArrayList<>()` | 実装クラスを差し替えやすい（推奨） |
+| `ArrayList<String> list = new ArrayList<>()` | `ArrayList` 固有メソッドが使える場合のみ |
