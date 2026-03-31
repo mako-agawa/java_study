@@ -179,3 +179,146 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `map` は元の値ではなく変換後の値を流す。`s.length()` で文字数に変換されるため型も `List<String>` → `List<Integer>` に変わる。
+
+---
+
+## Q45. Stream の sorted / distinct
+
+**問題:**
+```java
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> list = List.of(3, 1, 4, 1, 5, 9, 2, 6);
+
+        List<Integer> result = list.stream()
+                .sorted()
+                .distinct()
+                .collect(Collectors.toList());
+
+        System.out.println(result);
+    }
+}
+```
+
+**選択肢:**
+1. `[3, 1, 4, 1, 5, 9, 2, 6]`
+2. `[1, 2, 3, 4, 5, 6, 9]`
+3. `[1, 1, 2, 3, 4, 5, 6, 9]`
+4. `[9, 6, 5, 4, 3, 2, 1]`
+
+**回答:** 2（`[1, 2, 3, 4, 5, 6, 9]`）
+
+**ワンポイントアドバイス:**
+中間操作は記述順に実行される。`sorted()` で昇順ソート後、`distinct()` で重複除去。順序によって結果が変わるケースもあるため注意。
+
+---
+
+## Q46. Optional の基本
+
+**問題:**
+```java
+import java.util.List;
+import java.util.Optional;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> list = List.of(3, 1, 4, 1, 5, 9, 2, 6);
+
+        Optional<Integer> result = list.stream()
+                .filter(n -> n > 7)
+                .findFirst();
+
+        System.out.println(result.get());
+    }
+}
+```
+
+**選択肢:**
+1. `3`
+2. `9`
+3. `6`
+4. コンパイルエラー
+
+**回答:** 2（`9`）
+
+**ワンポイントアドバイス:**
+`findFirst()` は `Optional` を返す。`get()` で値を取り出せるが、値がない場合は `NoSuchElementException` が発生する。安全に扱うには `orElse()` や `isPresent()` を使う。
+
+---
+
+## Q47. 関数型インターフェース
+
+**問題:**
+```java
+import java.util.function.Predicate;
+
+public class Main {
+    public static void main(String[] args) {
+        Predicate<String> isLong = s -> s.length() > 5;
+
+        System.out.println(isLong.test("Hello"));
+        System.out.println(isLong.test("Hello, World"));
+    }
+}
+```
+
+**選択肢:**
+1. `true` / `true`
+2. `false` / `false`
+3. `false` / `true`
+4. コンパイルエラー
+
+**回答:** 3（`false` / `true`）
+
+**ワンポイントアドバイス:**
+Stream API の各メソッドはこれらの関数型インターフェースを引数に取っている。4つの型と抽象メソッドを押さえておく。
+
+| | 引数 | 戻り値 | 抽象メソッド |
+|---|---|---|---|
+| `Predicate<T>` | あり | boolean | `test()` |
+| `Function<T,R>` | あり | あり | `apply()` |
+| `Consumer<T>` | あり | なし | `accept()` |
+| `Supplier<T>` | なし | あり | `get()` |
+
+---
+
+## Q48. ジェネリクスの基本
+
+**問題:**
+```java
+public class Box<T> {
+    private T value;
+
+    public Box(T value) {
+        this.value = value;
+    }
+
+    public T getValue() {
+        return value;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Box<String> strBox = new Box<>("Hello");
+        Box<Integer> intBox = new Box<>(123);
+
+        System.out.println(strBox.getValue());
+        System.out.println(intBox.getValue());
+    }
+}
+```
+
+**選択肢:**
+1. `Hello` / `123`
+2. `T` / `T`
+3. コンパイルエラー
+4. 実行時エラー
+
+**回答:** 1（`Hello` / `123`）
+
+**ワンポイントアドバイス:**
+`<T>` は型パラメータ。インスタンス生成時に具体的な型が決まる。`List<String>` や `Optional<Integer>` もジェネリクスの仕組みで動いている。
