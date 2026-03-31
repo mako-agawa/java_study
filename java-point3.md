@@ -322,3 +322,70 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `<T>` は型パラメータ。インスタンス生成時に具体的な型が決まる。`List<String>` や `Optional<Integer>` もジェネリクスの仕組みで動いている。
+
+---
+
+## Q49. 例外処理の finally
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            System.out.println("try");
+            int result = 10 / 0;
+            System.out.println("after division");
+        } catch (ArithmeticException e) {
+            System.out.println("catch");
+        } finally {
+            System.out.println("finally");
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `try` → `after division` → `finally`
+2. `try` → `catch` → `finally`
+3. `try` → `catch`
+4. `try` → `finally`
+
+**回答:** 2（`try` → `catch` → `finally`）
+
+**ワンポイントアドバイス:**
+`finally` は例外が発生してもしなくても必ず実行される。リソース解放に使われるが、Java 7 以降は `try-with-resources` が推奨。
+
+| ケース | 実行順 |
+|---|---|
+| 例外なし | try → finally |
+| 例外あり・catchあり | try → catch → finally |
+| 例外あり・catchなし | try → finally → 例外が上に伝播 |
+
+---
+
+## Q50. try-with-resources
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        try (var br = new java.io.BufferedReader(
+                new java.io.FileReader("test.txt"))) {
+            System.out.println(br.readLine());
+        } catch (java.io.IOException e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `finally` ブロックがないためリソースがクローズされない
+2. `try` ブロックを抜けると自動的に `br.close()` が呼ばれる
+3. `var` は使えないのでコンパイルエラー
+4. `BufferedReader` は `AutoCloseable` を実装していないためコンパイルエラー
+
+**回答:** 2
+
+**ワンポイントアドバイス:**
+`try-with-resources` は `AutoCloseable` を実装したリソースを自動クローズする。Java 7 以降の推奨スタイル。`finally` での手動クローズが不要になる。
