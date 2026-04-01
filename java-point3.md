@@ -389,3 +389,222 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `try-with-resources` は `AutoCloseable` を実装したリソースを自動クローズする。Java 7 以降の推奨スタイル。`finally` での手動クローズが不要になる。
+
+---
+
+## Q51. 継承とオーバーライド（ポリモーフィズム）
+
+**問題:**
+```java
+public class Animal {
+    public String sound() {
+        return "...";
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public String sound() {
+        return "Woof";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        System.out.println(a.sound());
+    }
+}
+```
+
+**選択肢:**
+1. `...`
+2. `Woof`
+3. コンパイルエラー
+4. 実行時エラー
+
+**回答:** 2（`Woof`）
+
+**ワンポイントアドバイス:**
+変数の型（`Animal`）ではなく `new` で生成した実際のオブジェクトの型（`Dog`）のメソッドが呼ばれる（動的ディスパッチ）。これがポリモーフィズムの核心。
+
+---
+
+## Q52. 抽象クラス
+
+**問題:**
+```java
+abstract class Shape {
+    abstract double area();
+
+    public void printArea() {
+        System.out.println("面積: " + area());
+    }
+}
+
+class Circle extends Shape {
+    double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    double area() {
+        return radius * radius * 3.14;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape s = new Circle(5);
+        s.printArea();
+    }
+}
+```
+
+**選択肢:**
+1. `面積: 0.0`
+2. `面積: 78.5`
+3. コンパイルエラー
+4. `Shape` は抽象クラスなので実行時エラー
+
+**回答:** 2（`面積: 78.5`）※間違えた問題（4 と回答）
+
+**ワンポイントアドバイス:**
+抽象クラスは `new Shape()` で直接生成不可だが、`Shape s = new Circle(5)` のようにサブクラスのインスタンスを親クラス型で参照するのは問題ない。「直接インスタンス化」と「親クラス型での参照」は別物。
+
+---
+
+## Q53. インターフェースの複数実装
+
+**問題:**
+```java
+interface Flyable {
+    void fly();
+}
+
+interface Swimmable {
+    void swim();
+}
+
+class Duck implements Flyable, Swimmable {
+    @Override
+    public void fly() {
+        System.out.println("飛ぶ");
+    }
+
+    @Override
+    public void swim() {
+        System.out.println("泳ぐ");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Duck d = new Duck();
+        d.fly();
+        d.swim();
+    }
+}
+```
+
+**選択肢:**
+1. コンパイルエラー（複数のインターフェースは実装できない）
+2. `飛ぶ` → `泳ぐ`
+3. `泳ぐ` → `飛ぶ`
+4. 実行時エラー
+
+**回答:** 2（`飛ぶ` → `泳ぐ`）
+
+**ワンポイントアドバイス:**
+クラスの継承（`extends`）は1つだけだが、インターフェースの実装（`implements`）は複数可。`implements B, C, D` のようにカンマ区切りで列挙する。
+
+---
+
+## Q54. instanceof 演算子
+
+**問題:**
+```java
+class Animal {}
+class Dog extends Animal {}
+class Cat extends Animal {}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+
+        System.out.println(a instanceof Animal);
+        System.out.println(a instanceof Dog);
+        System.out.println(a instanceof Cat);
+    }
+}
+```
+
+**選択肢:**
+1. `true` / `true` / `true`
+2. `true` / `true` / `false`
+3. `false` / `true` / `false`
+4. コンパイルエラー
+
+**回答:** 2（`true` / `true` / `false`）
+
+**ワンポイントアドバイス:**
+`instanceof` は変数の型ではなく `new` で生成した実際のオブジェクトの型を見る。ダウンキャスト前の安全確認に使う。
+
+```java
+if (a instanceof Dog) {
+    Dog d = (Dog) a;  // 安全にキャスト
+}
+```
+
+---
+
+## Q55. super キーワード
+
+**問題:**
+```java
+class Animal {
+    String name;
+
+    Animal(String name) {
+        this.name = name;
+    }
+
+    String greet() {
+        return "私は " + name + " です";
+    }
+}
+
+class Dog extends Animal {
+    String breed;
+
+    Dog(String name, String breed) {
+        super(name);
+        this.breed = breed;
+    }
+
+    @Override
+    String greet() {
+        return super.greet() + "（" + breed + "）";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog("ポチ", "柴犬");
+        System.out.println(d.greet());
+    }
+}
+```
+
+**選択肢:**
+1. `私は ポチ です`
+2. `私は ポチ です（柴犬）`
+3. `（柴犬）`
+4. コンパイルエラー
+
+**回答:** 2（`私は ポチ です（柴犬）`）
+
+**ワンポイントアドバイス:**
+`super(引数)` で親のコンストラクタ、`super.メソッド()` で親のメソッドを呼べる。`super()` はコンストラクタの1行目に書く必要がある。
