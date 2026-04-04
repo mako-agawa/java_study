@@ -343,3 +343,80 @@ message = "World";
 
 **ワンポイントアドバイス:**
 `var` は右辺からコンパイラが型を推論する。`null` は型推論できないのでエラー。初期化なし・メソッド引数・フィールドには使えない。一度推論された型は変わらない（動的型付けではない）。
+
+---
+
+## Q72. インターフェースの default メソッド
+
+**問題:**
+```java
+interface Greeter {
+    void greet(String name);
+
+    default void greetAll(String[] names) {
+        for (String name : names) {
+            greet(name);
+        }
+    }
+}
+
+class HelloGreeter implements Greeter {
+    @Override
+    public void greet(String name) {
+        System.out.println("Hello, " + name + "!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Greeter g = new HelloGreeter();
+        g.greetAll(new String[]{"Alice", "Bob"});
+    }
+}
+```
+
+**選択肢:**
+1. コンパイルエラー（インターフェースにメソッド実装は書けない）
+2. `Hello, Alice!` → `Hello, Bob!`
+3. `Hello, Alice!` のみ
+4. 実行時エラー
+
+**回答:** 2（`Hello, Alice!` → `Hello, Bob!`）
+
+**ワンポイントアドバイス:**
+`default` メソッドはJava 8以降でインターフェースにデフォルト実装を持たせる機能。実装クラスでオーバーライド不要だが、必要なら上書きできる。既存の実装クラスを変更せずにインターフェースへメソッド追加が可能。
+
+---
+
+## Q73. 匿名クラス
+
+**問題:**
+```java
+interface Animal {
+    String sound();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal cat = new Animal() {
+            @Override
+            public String sound() {
+                return "Meow";
+            }
+        };
+
+        System.out.println(cat.sound());
+    }
+}
+```
+
+**選択肢:**
+1. コンパイルエラー（インターフェースは `new` できない）
+2. `Meow`
+3. `Animal`
+4. 実行時エラー
+
+**回答:** 2（`Meow`）
+
+**ワンポイントアドバイス:**
+匿名クラスはインターフェースや抽象クラスをその場で実装してインスタンス化する。抽象メソッドが1つの場合はラムダ式の方が簡潔。複数メソッドを実装したい場合に匿名クラスを使う。
