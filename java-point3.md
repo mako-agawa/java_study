@@ -730,3 +730,66 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `ordinal()` は0始まりのインデックス。`println(d)` は内部で `d.toString()` を呼ぶため定数名が出力される。`name()` と `toString()` は基本同じ値を返す。
+
+---
+
+## Q59. 文字列の比較
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        String a = "hello";
+        String b = "hello";
+        String c = new String("hello");
+
+        System.out.println(a == b);
+        System.out.println(a == c);
+        System.out.println(a.equals(c));
+    }
+}
+```
+
+**選択肢:**
+1. `true` / `true` / `true`
+2. `true` / `false` / `true`
+3. `false` / `false` / `true`
+4. `true` / `false` / `false`
+
+**回答:** 2（`true` / `false` / `true`）
+
+**ワンポイントアドバイス:**
+`==` は参照（アドレス）を比較、`equals()` は中身を比較。文字列リテラルは文字列プールで共有されるが、`new String()` は別オブジェクトを生成する。文字列比較は必ず `equals()` を使う。
+
+---
+
+## Q60. String のメソッド
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        String s = "Hello, World!";
+
+        System.out.println(s.length());
+        System.out.println(s.substring(7));
+        System.out.println(s.toUpperCase());
+        System.out.println(s.contains("World"));
+    }
+}
+```
+
+**選択肢:**
+1. `13` / `World!` / `HELLO, WORLD!` / `true`
+2. `14` / `World!` / `HELLO, WORLD!` / `true`
+3. `13` / `World` / `HELLO, WORLD!` / `true`
+4. `13` / `World!` / `Hello, World!` / `true`
+
+**回答:** 1（`13` / `World!` / `HELLO, WORLD!` / `true`）
+
+**ワンポイントアドバイス:**
+`String` はイミュータブル。`toUpperCase()` などは元の文字列を変えず新しい文字列を返す。メソッドチェーンで繋げて書ける。
+
+```java
+"  090-1234-5678  ".trim().replace("-", ""); // "09012345678"
+```
