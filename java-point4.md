@@ -183,3 +183,99 @@ public class Main {
 
 **ワンポイントアドバイス:**
 拡張for文はインデックスが不要な場合に使う。配列・List・Mapのキーセットなど `Iterable` を実装したものに使える。ループ中に要素を削除すると `ConcurrentModificationException` が発生するので注意。
+
+---
+
+## Q67. ラッパークラスとオートボクシング
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 42;
+        Integer b = a;
+        int c = b;
+
+        System.out.println(b);
+        System.out.println(b.getClass().getSimpleName());
+        System.out.println(Integer.MAX_VALUE);
+    }
+}
+```
+
+**選択肢:**
+1. `42` / `int` / `2147483647`
+2. `42` / `Integer` / `2147483647`
+3. コンパイルエラー（int を Integer に代入できない）
+4. `42` / `Integer` / `2147483648`
+
+**回答:** 2（`42` / `Integer` / `2147483647`）
+
+**ワンポイントアドバイス:**
+`int` → `Integer` の自動変換をオートボクシング、`Integer` → `int` をアンボクシングと言う。`null` の `Integer` をアンボクシングすると `NullPointerException` が発生する。`long` リテラルは `L`、`float` リテラルは `f` をつける。
+
+---
+
+## Q68. 型変換とキャスト
+
+**問題:** 以下のうちコンパイルエラーになるものはどれ？
+
+```java
+// (1)
+int a = 100;
+long b = a;
+
+// (2)
+long c = 100L;
+int d = c;
+
+// (3)
+double e = 3.14;
+int f = (int) e;
+
+// (4)
+int g = 3.14;
+```
+
+**選択肢:**
+1. (2) のみ
+2. (2)(4) のみ
+3. (4) のみ
+4. (1)(2)(3)(4) すべて
+
+**回答:** 2（(2)(4) のみ）
+
+**ワンポイントアドバイス:**
+`byte → short → int → long → float → double` の順で拡大変換は自動、縮小変換はキャスト必要。キャストで小数点以下は切り捨て（四捨五入ではない）。`double` リテラル（3.14）を `int` に直接代入はエラー。
+
+---
+
+## Q69. switch式
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int day = 3;
+
+        String result = switch (day) {
+            case 1, 7 -> "休日";
+            case 2, 3, 4, 5, 6 -> "平日";
+            default -> "不明";
+        };
+
+        System.out.println(result);
+    }
+}
+```
+
+**選択肢:**
+1. `休日`
+2. `平日`
+3. `不明`
+4. コンパイルエラー
+
+**回答:** 2（`平日`）
+
+**ワンポイントアドバイス:**
+switch 式（Java 14以降）は `->` を使い `break` 不要。カンマで複数ケースをまとめられる。値を変数に直接代入できる。フォールスルーが起きない点が従来の switch 文と大きく異なる。
