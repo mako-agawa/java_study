@@ -608,3 +608,125 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `super(引数)` で親のコンストラクタ、`super.メソッド()` で親のメソッドを呼べる。`super()` はコンストラクタの1行目に書く必要がある。
+
+---
+
+## Q56. アクセス修飾子
+
+**問題:**
+```java
+package com.example;
+
+class Animal {
+    private String name = "動物";
+    String type = "哺乳類";
+    protected int age = 3;
+    public String color = "茶色";
+}
+
+class Main {
+    public static void main(String[] args) {
+        Animal a = new Animal();
+        System.out.println(a.name);   // (1)
+        System.out.println(a.type);   // (2)
+        System.out.println(a.age);    // (3)
+        System.out.println(a.color);  // (4)
+    }
+}
+```
+
+**選択肢:**
+1. すべてコンパイルエラーなし
+2. (1) のみコンパイルエラー
+3. (1)(2) がコンパイルエラー
+4. (1)(2)(3) がコンパイルエラー
+
+**回答:** 2（(1) のみコンパイルエラー）
+
+**ワンポイントアドバイス:**
+`protected` はサブクラスと同パッケージからアクセス可。別パッケージの無関係クラスからはアクセス不可。
+
+| 修飾子 | 同クラス | 同パッケージ | サブクラス | 別パッケージ |
+|---|---|---|---|---|
+| `private` | ○ | × | × | × |
+| なし | ○ | ○ | × | × |
+| `protected` | ○ | ○ | ○ | × |
+| `public` | ○ | ○ | ○ | ○ |
+
+---
+
+## Q57. final キーワード
+
+**問題:** 以下のうちコンパイルエラーになるものはどれ？
+
+```java
+// (1)
+final int x = 10;
+x = 20;
+
+// (2)
+final class Animal {}
+class Dog extends Animal {}
+
+// (3)
+class Animal {
+    final String sound() { return "..."; }
+}
+class Dog extends Animal {
+    @Override
+    String sound() { return "Woof"; }
+}
+
+// (4)
+final List<String> list = new ArrayList<>();
+list.add("hello");
+```
+
+**選択肢:**
+1. (1) のみ
+2. (1)(2) のみ
+3. (1)(2)(3) のみ
+4. (1)(2)(3)(4) すべて
+
+**回答:** 3（(1)(2)(3) のみ）※間違えた問題（2 と回答）
+
+**ワンポイントアドバイス:**
+`final` 変数は参照先を固定するだけで、オブジェクトの中身は変更可能。`list.add()` は参照先を変えるのではなく中身を変えるだけなのでエラーにならない。
+
+| 対象 | 効果 |
+|---|---|
+| 変数 | 再代入不可 |
+| クラス | 継承不可 |
+| メソッド | オーバーライド不可 |
+
+---
+
+## Q58. 列挙型（enum）
+
+**問題:**
+```java
+enum Day {
+    MON, TUE, WED, THU, FRI, SAT, SUN
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Day d = Day.WED;
+
+        System.out.println(d);
+        System.out.println(d.ordinal());
+        System.out.println(d.name());
+    }
+}
+```
+
+**選択肢:**
+1. `WED` / `2` / `WED`
+2. `WED` / `3` / `WED`
+3. `2` / `2` / `WED`
+4. コンパイルエラー
+
+**回答:** 1（`WED` / `2` / `WED`）※間違えた問題（3 と回答）
+
+**ワンポイントアドバイス:**
+`ordinal()` は0始まりのインデックス。`println(d)` は内部で `d.toString()` を呼ぶため定数名が出力される。`name()` と `toString()` は基本同じ値を返す。
