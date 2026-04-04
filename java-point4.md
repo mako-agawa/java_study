@@ -279,3 +279,67 @@ public class Main {
 
 **ワンポイントアドバイス:**
 switch 式（Java 14以降）は `->` を使い `break` 不要。カンマで複数ケースをまとめられる。値を変数に直接代入できる。フォールスルーが起きない点が従来の switch 文と大きく異なる。
+
+---
+
+## Q70. 日付・時刻API
+
+**問題:**
+```java
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+        LocalDate date = LocalDate.of(2024, 3, 15);
+
+        System.out.println(date);
+        System.out.println(date.getYear());
+        System.out.println(date.getMonthValue());
+        System.out.println(date.plusDays(10));
+    }
+}
+```
+
+**選択肢:**
+1. `2024-03-15` / `2024` / `3` / `2024-03-25`
+2. `2024/03/15` / `2024` / `3` / `2024/03/25`
+3. `2024-03-15` / `2024` / `3` / `2024-03-15`
+4. コンパイルエラー
+
+**回答:** 1（`2024-03-15` / `2024` / `3` / `2024-03-25`）
+
+**ワンポイントアドバイス:**
+`LocalDate` はイミュータブル。`plusDays()` などは新しいオブジェクトを返す。`getMonthValue()` は1〜12を返す。`LocalDateTime.now()` で一度取得して `toLocalDate()` / `toLocalTime()` で分解できる。
+
+---
+
+## Q71. var キーワード
+
+**問題:** 以下のうちコンパイルエラーになるものはどれ？
+
+```java
+// (1)
+var x = 10;
+
+// (2)
+var list = new ArrayList<String>();
+list.add("hello");
+
+// (3)
+var n = null;
+
+// (4)
+var message = "Hello";
+message = "World";
+```
+
+**選択肢:**
+1. (3) のみ
+2. (3)(4) のみ
+3. (1)(3) のみ
+4. エラーなし
+
+**回答:** 1（(3) のみ）※間違えた問題（4 と回答）
+
+**ワンポイントアドバイス:**
+`var` は右辺からコンパイラが型を推論する。`null` は型推論できないのでエラー。初期化なし・メソッド引数・フィールドには使えない。一度推論された型は変わらない（動的型付けではない）。
