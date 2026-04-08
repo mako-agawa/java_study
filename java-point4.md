@@ -420,3 +420,67 @@ public class Main {
 
 **ワンポイントアドバイス:**
 匿名クラスはインターフェースや抽象クラスをその場で実装してインスタンス化する。抽象メソッドが1つの場合はラムダ式の方が簡潔。複数メソッドを実装したい場合に匿名クラスを使う。
+
+---
+
+## Q74. Comparator によるソート
+
+**問題:**
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("banana");
+        list.add("apple");
+        list.add("cherry");
+
+        Collections.sort(list, (a, b) -> a.compareTo(b));
+
+        System.out.println(list);
+    }
+}
+```
+
+**選択肢:**
+1. `[banana, apple, cherry]`
+2. `[apple, banana, cherry]`
+3. `[cherry, banana, apple]`
+4. コンパイルエラー
+
+**回答:** 2（`[apple, banana, cherry]`）
+
+**ワンポイントアドバイス:**
+`compareTo` の戻り値が負なら a が先、正なら b が先。`Comparator.naturalOrder()` で昇順、`Comparator.reverseOrder()` で降順。`comparingInt` で数値基準のソートも可能。
+
+---
+
+## Q75. マルチキャッチ
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            String s = null;
+            System.out.println(s.length());
+        } catch (NullPointerException | IllegalArgumentException e) {
+            System.out.println("例外発生: " + e.getClass().getSimpleName());
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `例外発生: NullPointerException`
+2. `例外発生: IllegalArgumentException`
+3. コンパイルエラー（`|` で複数の例外は書けない）
+4. 実行時エラー（catchされない）
+
+**回答:** 1（`例外発生: NullPointerException`）
+
+**ワンポイントアドバイス:**
+Java 7以降、`|` で複数の例外をまとめて捕捉できる。親子関係にある例外はマルチキャッチに書けない。`NullPointerException` は null のオブジェクトに操作を行うと発生する。`Optional.ofNullable()` で null を安全に扱える。
