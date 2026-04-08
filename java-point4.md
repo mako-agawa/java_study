@@ -484,3 +484,28 @@ public class Main {
 
 **ワンポイントアドバイス:**
 Java 7以降、`|` で複数の例外をまとめて捕捉できる。親子関係にある例外はマルチキャッチに書けない。`NullPointerException` は null のオブジェクトに操作を行うと発生する。`Optional.ofNullable()` で null を安全に扱える。
+
+---
+
+## Q76. モジュールシステム
+
+**問題:** 以下の説明のうち正しいものはどれ？
+
+```java
+// module-info.java
+module com.example.app {
+    requires java.sql;
+    exports com.example.app.api;
+}
+```
+
+**選択肢:**
+1. `requires` は使用するモジュールを宣言し、`exports` は公開するパッケージを宣言する
+2. `requires` は公開するパッケージを宣言し、`exports` は使用するモジュールを宣言する
+3. `module-info.java` はクラスの中に書く
+4. モジュールシステムはJava 8で導入された
+
+**回答:** 1
+
+**ワンポイントアドバイス:**
+モジュールシステムは Java 9 で導入。`module-info.java` はパッケージのルートに置く。`requires` で依存モジュールを宣言、`exports` で公開パッケージを宣言。`exports` していないパッケージは外部からアクセス不可。
