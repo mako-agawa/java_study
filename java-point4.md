@@ -509,3 +509,124 @@ module com.example.app {
 
 **ワンポイントアドバイス:**
 モジュールシステムは Java 9 で導入。`module-info.java` はパッケージのルートに置く。`requires` で依存モジュールを宣言、`exports` で公開パッケージを宣言。`exports` していないパッケージは外部からアクセス不可。
+
+---
+
+## Q77. String の switch 文
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        String s = "Hello";
+        switch (s) {
+            case "Hello":
+                System.out.println("Hi!");
+                break;
+            case "World":
+                System.out.println("World!");
+                break;
+            default:
+                System.out.println("Unknown");
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `Hi!`
+2. `World!`
+3. `Unknown`
+4. コンパイルエラー（String は switch に使えない）
+
+**回答:** 1（`Hi!`）
+
+**ワンポイントアドバイス:**
+`String` の `switch` 文は Java 7 以降で使用可能。`switch` で使える型: `byte`, `short`, `int`, `char`, それらのラッパー型、`String`, `enum`。`long`, `float`, `double` は使えない。
+
+---
+
+## Q78. 拡張 for 文と配列の合計
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {3, 1, 4, 1, 5};
+        int sum = 0;
+        for (int x : arr) {
+            sum += x;
+        }
+        System.out.println(sum);
+    }
+}
+```
+
+**選択肢:**
+1. `14`
+2. `15`
+3. `13`
+4. コンパイルエラー
+
+**回答:** 1（`14`）
+
+**ワンポイントアドバイス:**
+拡張 for 文はインデックスが不要なときに使う。配列・`Iterable` 実装クラス（`List` 等）に使用可能。プリミティブ型の要素を変更しても元の配列には反映されない。
+
+---
+
+## Q79. static フィールド
+
+**問題:**
+```java
+public class Main {
+    static int count = 0;
+
+    public static void main(String[] args) {
+        Main obj1 = new Main();
+        Main obj2 = new Main();
+        obj1.count++;
+        System.out.println(obj2.count);
+    }
+}
+```
+
+**選択肢:**
+1. `0`
+2. `1`
+3. コンパイルエラー
+4. 実行時エラー
+
+**回答:** 2（`1`）
+
+**ワンポイントアドバイス:**
+`static` フィールドはインスタンスではなくクラスに属し、全インスタンスで共有される。インスタンス経由でのアクセスは可能だが、`Main.count` と書くのが推奨。
+
+---
+
+## Q80. 文字列の == 比較
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        String a = "Java";
+        String b = "Java";
+        String c = new String("Java");
+
+        System.out.println(a == b);
+        System.out.println(a == c);
+    }
+}
+```
+
+**選択肢:**
+1. `true` / `true`
+2. `true` / `false`
+3. `false` / `true`
+4. `false` / `false`
+
+**回答:** 2（`true` / `false`）
+
+**ワンポイントアドバイス:**
+文字列リテラルは文字列プールで共有されるため `==` が `true` になる。`new String()` は新たなオブジェクトを生成するため別参照。文字列の内容比較には `equals()` を使う。
