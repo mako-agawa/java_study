@@ -225,3 +225,60 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `a > b ? a : b` は2つの値の大きい方を返すパターン。`Math.max(a, b)` でも同じ結果が得られる。
+
+---
+
+## Q99. Arrays.sort / Arrays.toString
+
+**問題:**
+```java
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = {5, 3, 1, 4, 2};
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+}
+```
+
+**選択肢:**
+1. `[5, 3, 1, 4, 2]`
+2. `[1, 2, 3, 4, 5]`
+3. `[5, 4, 3, 2, 1]`
+4. コンパイルエラー
+
+**回答:** 2（`[1, 2, 3, 4, 5]`）
+
+**ワンポイントアドバイス:**
+`Arrays.sort()` は昇順ソート。降順にするには `int[]` をそのまま使えないため、`Integer[]` に変換して `Arrays.sort(arr, Comparator.reverseOrder())` を使う。`int[]` はプリミティブ型なので `Comparator` が直接使えない点に注意。
+
+---
+
+## Q100. ArrayIndexOutOfBoundsException
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[3];
+            arr[5] = 10;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("範囲外: " + e.getMessage());
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `範囲外: null`
+2. `範囲外: 3`
+3. `範囲外: 5`
+4. 実行時エラー（catchされない）
+
+**回答:** 3（`範囲外: Index 5 out of bounds for length 3`）
+
+**ワンポイントアドバイス:**
+`ArrayIndexOutOfBoundsException` は配列の範囲外アクセス時に発生。Java 11 以降は `e.getMessage()` で `"Index 5 out of bounds for length 3"` のように詳細なメッセージが返る。配列の有効インデックスは `0` 〜 `length - 1`。
