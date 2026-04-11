@@ -107,3 +107,121 @@ public class Main {
 
 **ワンポイントアドバイス:**
 配列は `.length`（フィールド）、`String` は `.length()`（メソッド）、`List` 等コレクションは `.size()`。この3つの使い分けに注意。
+
+---
+
+## Q95. ポリモーフィズム
+
+**問題:**
+```java
+public class Animal {
+    public String sound() {
+        return "...";
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public String sound() {
+        return "ワン";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        System.out.println(a.sound());
+    }
+}
+```
+
+**選択肢:**
+1. `...`
+2. `ワン`
+3. コンパイルエラー
+4. 実行時エラー
+
+**回答:** 2（`ワン`）
+
+**ワンポイントアドバイス:**
+Javaのメソッド呼び出しは実行時の実際の型で決まる（動的ディスパッチ）。変数の型が `Animal` でも実際のオブジェクトが `Dog` なら `Dog#sound()` が呼ばれる。これがポリモーフィズムの基本。
+
+---
+
+## Q96. 整数除算と double
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int x = 5;
+        int y = 2;
+        double result = x / y;
+        System.out.println(result);
+    }
+}
+```
+
+**選択肢:**
+1. `2.5`
+2. `2.0`
+3. `3.0`
+4. コンパイルエラー
+
+**回答:** 2（`2.0`）
+
+**ワンポイントアドバイス:**
+除算の結果の型はオペランドの型で決まる。`int / int` は整数除算になり小数が切り捨てられる。`2.5` を得たいなら `(double) x / y` または `5.0 / 2` のようにどちらかを `double` にする。
+
+---
+
+## Q97. StringBuilder
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        StringBuilder sb = new StringBuilder("Hello");
+        sb.append(" World");
+        sb.reverse();
+        System.out.println(sb);
+    }
+}
+```
+
+**選択肢:**
+1. `Hello World`
+2. `dlroW olleH`
+3. `World Hello`
+4. コンパイルエラー
+
+**回答:** 2（`dlroW olleH`）
+
+**ワンポイントアドバイス:**
+`StringBuilder` の主なメソッド: `append(s)`（末尾追加）、`insert(i, s)`（位置 i に挿入）、`delete(s, e)`（s〜e 削除）、`reverse()`（逆順）、`toString()`（String 変換）。
+
+---
+
+## Q98. 三項演算子で最大値
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 3;
+        int b = 4;
+        System.out.println(a > b ? a : b);
+    }
+}
+```
+
+**選択肢:**
+1. `3`
+2. `4`
+3. `true`
+4. コンパイルエラー
+
+**回答:** 2（`4`）
+
+**ワンポイントアドバイス:**
+`a > b ? a : b` は2つの値の大きい方を返すパターン。`Math.max(a, b)` でも同じ結果が得られる。
