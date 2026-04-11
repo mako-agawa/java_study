@@ -630,3 +630,115 @@ public class Main {
 
 **ワンポイントアドバイス:**
 文字列リテラルは文字列プールで共有されるため `==` が `true` になる。`new String()` は新たなオブジェクトを生成するため別参照。文字列の内容比較には `equals()` を使う。
+
+---
+
+## Q81. 剰余演算子
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = 3;
+        System.out.println(x % y);
+    }
+}
+```
+
+**選択肢:**
+1. `3`
+2. `1`
+3. `0`
+4. コンパイルエラー
+
+**回答:** 2（`1`）
+
+**ワンポイントアドバイス:**
+`%` は割り算の余りを返す剰余演算子。`10 ÷ 3 = 3 余り 1`。偶数・奇数判定（`n % 2 == 0`）や配列の循環インデックス（`i % arr.length`）でよく使われる。
+
+---
+
+## Q82. List の remove
+
+**問題:**
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.remove(1);
+        System.out.println(list);
+    }
+}
+```
+
+**選択肢:**
+1. `[2, 3]`
+2. `[1, 3]`
+3. `[1, 2]`
+4. `[1, 2, 3]`
+
+**回答:** 2（`[1, 3]`）
+
+**ワンポイントアドバイス:**
+`List` の `remove` には `remove(int index)`（インデックス削除）と `remove(Object o)`（値削除）の2種類がある。値で削除したい場合は `list.remove(Integer.valueOf(2))` のようにラッパー型を使う。
+
+---
+
+## Q83. while ループ
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int i = 0;
+        while (i < 3) {
+            System.out.print(i + " ");
+            i++;
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `0 1 2 3 `
+2. `1 2 3 `
+3. `0 1 2 `
+4. 無限ループ
+
+**回答:** 3（`0 1 2 `）
+
+**ワンポイントアドバイス:**
+`print` は改行なし、`println` は改行あり。`i < 3` は `0, 1, 2` の3回ループ。`i <= 3` なら `0 1 2 3` になる。
+
+---
+
+## Q84. 前置・後置インクリメント
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int a = 5;
+        int b = ++a * 2;
+        System.out.println(a + " " + b);
+    }
+}
+```
+
+**選択肢:**
+1. `5 10`
+2. `6 10`
+3. `6 12`
+4. `5 12`
+
+**回答:** 3（`6 12`）
+
+**ワンポイントアドバイス:**
+`++a`（前置）はインクリメント後の値を使う。`a++`（後置）はインクリメント前の値を使う。`a++` なら `b = 5 * 2 = 10` になり、`a` は後から `6` になる。
