@@ -256,6 +256,35 @@ public class Main {
 
 ---
 
+## Q101. 関数型インターフェースとラムダ式
+
+**問題:**
+```java
+public interface Greet {
+    void hello();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Greet g = () -> System.out.println("こんにちは");
+        g.hello();
+    }
+}
+```
+
+**選択肢:**
+1. コンパイルエラー（インターフェースはインスタンス化できない）
+2. `こんにちは`
+3. 実行時エラー
+4. 何も出力されない
+
+**回答:** 2（`こんにちは`）
+
+**ワンポイントアドバイス:**
+抽象メソッドが1つだけのインターフェースを関数型インターフェースと呼ぶ。ラムダ式で実装できる。`@FunctionalInterface` アノテーションを付けると明示できる。`Runnable`, `Comparator`, `Predicate` 等も関数型インターフェース。→ 詳細は `interface.md` 参照。
+
+---
+
 ## Q100. ArrayIndexOutOfBoundsException
 
 **問題:**
