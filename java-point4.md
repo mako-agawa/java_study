@@ -742,3 +742,110 @@ public class Main {
 
 **ワンポイントアドバイス:**
 `++a`（前置）はインクリメント後の値を使う。`a++`（後置）はインクリメント前の値を使う。`a++` なら `b = 5 * 2 = 10` になり、`a` は後から `6` になる。
+
+---
+
+## Q85. substring
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        String s = "Hello, World!";
+        System.out.println(s.substring(7));
+    }
+}
+```
+
+**選択肢:**
+1. `World!`
+2. `Hello,`
+3. `ello, World!`
+4. `World`
+
+**回答:** 1（`World!`）
+
+**ワンポイントアドバイス:**
+`substring(n)` はインデックス n 以降を返す。`substring(n, m)` はインデックス n 以上 m 未満を返す。インデックスは 0 始まり。
+
+---
+
+## Q86. 配列のデフォルト値
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int[] arr = new int[3];
+        System.out.println(arr[0]);
+    }
+}
+```
+
+**選択肢:**
+1. `null`
+2. `0`
+3. コンパイルエラー
+4. 実行時エラー（ArrayIndexOutOfBoundsException）
+
+**回答:** 2（`0`）
+
+**ワンポイントアドバイス:**
+型ごとのデフォルト値: `int`/`long` 等は `0`、`double`/`float` は `0.0`、`boolean` は `false`、参照型（`String` 等）は `null`。
+
+---
+
+## Q87. break と continue
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        for (int i = 0; i < 5; i++) {
+            if (i == 3) break;
+            System.out.print(i + " ");
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `0 1 2 3 4 `
+2. `0 1 2 3 `
+3. `0 1 2 `
+4. `0 1 2 4 `
+
+**回答:** 3（`0 1 2 `）
+
+**ワンポイントアドバイス:**
+`break` はループを即座に終了する。`continue` はその回をスキップして次のループへ進む。`if (i == 3) continue;` なら `0 1 2 4` になる。
+
+---
+
+## Q88. ArithmeticException
+
+**問題:**
+```java
+public class Main {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = 0;
+        try {
+            System.out.println(x / y);
+        } catch (ArithmeticException e) {
+            System.out.println("エラー: " + e.getMessage());
+        }
+    }
+}
+```
+
+**選択肢:**
+1. `エラー: null`
+2. `エラー: / by zero`
+3. `Infinity`
+4. 実行時エラー（catchされない）
+
+**回答:** 2（`エラー: / by zero`）
+
+**ワンポイントアドバイス:**
+整数の 0 除算は `ArithmeticException` がスローされる。`double` の 0 除算は例外にならず `Infinity` になる（`10.0 / 0.0 == Infinity`）。
